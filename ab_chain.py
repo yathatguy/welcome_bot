@@ -32,7 +32,7 @@ def on_user_joins(bot, update):
     global MESSAGE_ID
     query = get_query(bot, update)
     if len(query.message.new_chat_members) > 0 and query.message.chat.type in ["group", "supergroup"]:
-        logging.debug(query.message)
+        logging.info(query.message)
         if query.message.new_chat_member.username != None:
             text = WELCOME_TEXT.format(u'@' + query.message.new_chat_member.username)
         else:
@@ -43,7 +43,7 @@ def on_user_joins(bot, update):
             filedata = open("greeting.txt", "r")
             info_package = filedata.read()
             filedata.close()
-            bot.sendMessage(text=info_package, chat_id=query.message.chat.id, disable_web_page_preview=True)
+            bot.sendMessage(text=info_package, chat_id=query.message.chat.id, disable_web_page_preview=False)
             MESSAGE_ID = query.message.message_id
 
 
