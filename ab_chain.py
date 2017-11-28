@@ -37,12 +37,12 @@ def on_user_joins(bot, update):
             if user.username != None:
                 text = WELCOME_TEXT.format(u'@' + user.username)
             else:
-                name = None
+                name = str()
                 if user.first_name:
                     name = name + user.first_name
                 if user.last_name:
                     name = name + ' ' + user.last_name
-                if name:
+                if len(name) > 0:
                     text = WELCOME_TEXT.format(name)
                 else:
                     text = WELCOME_TEXT.format('stranger')
