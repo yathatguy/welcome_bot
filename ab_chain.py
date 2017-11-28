@@ -3,6 +3,8 @@
 from __future__ import unicode_literals, print_function
 
 import logging
+import os
+
 from telegram.ext import Updater, Filters, MessageHandler
 
 # from clients import log_client, check_username
@@ -38,13 +40,12 @@ def on_user_joins(bot, update):
         MESSAGE_ID = query.message.message_id
     if query.message.message_id > MESSAGE_ID + STEP:
         filedata = open("greeting.txt", "r")
-        infoPackage = filedata.read()
+        info_package = filedata.read()
         filedata.close()
-        bot.sendMessage(text=infoPackage, chat_id=query.message.from_user.id, disable_web_page_preview=True)
+        bot.sendMessage(text=info_package, chat_id=query.message.from_user.id, disable_web_page_preview=True)
 
 
 def main():
-
     logging.basicConfig(level=logging.WARN)
 
     text_handler = MessageHandler(Filters.all, on_user_joins)
@@ -56,5 +57,4 @@ def main():
 
 
 if __name__ == '__main__':
-
     main()
