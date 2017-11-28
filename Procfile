@@ -1,0 +1,1 @@
+worker: python2 ab_chain.py

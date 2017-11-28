@@ -8,14 +8,12 @@ from telegram.ext import Updater, Filters, MessageHandler
 # from clients import log_client, check_username
 
 STEP = 10
-TOKEN = '493719103:AAERuJkTFIokPjPTjFXKTP6Zu6dlPtRYdb8'
 WELCOME_TEXT = 'Greetings, {}, welcome to AB-CHAIN community!'
 MESSAGE_ID = 0
 
 # Set up Updater and Dispatcher
 
-updater = Updater(token=TOKEN)
-#updater = Updater(token=os.environ['TOKEN'])
+updater = Updater(token=os.environ['TOKEN'])
 updater.stop()
 dispatcher = updater.dispatcher
 
