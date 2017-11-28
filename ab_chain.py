@@ -32,8 +32,9 @@ def on_user_joins(bot, update):
     global MESSAGE_ID
     query = get_query(bot, update)
     if len(query.message.new_chat_members) > 0 and query.message.chat.type in ["group", "supergroup"]:
-        if query.message.new_chat_members.username != None:
-            text = WELCOME_TEXT.format(u'@' + query.message.new_chat_members.username)
+        logging.debug(query.message)
+        if query.message.new_chat_member.username != None:
+            text = WELCOME_TEXT.format(u'@' + query.message.new_chat_member.username)
         else:
             text = WELCOME_TEXT.format('stranger')
         bot.sendMessage(text=text, chat_id=query.message.chat.id)
