@@ -37,13 +37,13 @@ def on_user_joins(bot, update):
         else:
             text = WELCOME_TEXT.format('stranger')
         bot.sendMessage(text=text, chat_id=query.message.chat.id)
-        MESSAGE_ID = query.message.message_id
         logging.error("Message {}, last info package was sent on greeting {}".format(query.message.message_id, MESSAGE_ID))
         if query.message.message_id > MESSAGE_ID + STEP:
             filedata = open("greeting.txt", "r")
             info_package = filedata.read()
             filedata.close()
             bot.sendMessage(text=info_package, chat_id=query.message.chat.id, disable_web_page_preview=True)
+            MESSAGE_ID = query.message.message_id
 
 
 def main():
