@@ -31,22 +31,22 @@ def get_query(bot, update):
 def on_user_joins(bot, update):
     global MESSAGE_ID
     query = get_query(bot, update)
+    logging.info(query.message)
     if len(query.message.new_chat_members) > 0 and query.message.chat.type in ["group", "supergroup"]:
         for user in query.message.new_chat_members:
             if user.username != None:
                 text = WELCOME_TEXT.format(u'@' + user.username)
             else:
                 name = None
-                if "first_name" in user.keys():
+                if user.first_name:
                     name = name + user.first_name
-                if "last_name" in user.keys():
+                if user.last_name:
                     name = name + ' ' + user.last_name
                 if name:
                     text = WELCOME_TEXT.format(name)
                 else:
                     text = WELCOME_TEXT.format('stranger')
             bot.sendMessage(text=text, chat_id=query.message.chat.id)
-            logging.info("Message {}, last info package was sent on greeting {}".format(query.message.message_id, MESSAGE_ID))
             if query.message.message_id > MESSAGE_ID + STEP:
                 filedata = open("greeting.txt", "r")
                 info_package = filedata.read()
