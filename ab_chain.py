@@ -31,7 +31,6 @@ def get_query(bot, update):
 def on_user_joins(bot, update):
     global MESSAGE_ID
     query = get_query(bot, update)
-    logging.info(query.message)
     if len(query.message.new_chat_members) > 0 and query.message.chat.type in ["group", "supergroup"]:
         for user in query.message.new_chat_members:
             if user.username != None:
@@ -41,7 +40,10 @@ def on_user_joins(bot, update):
                 if user.first_name:
                     name = name + user.first_name
                 if user.last_name:
-                    name = name + ' ' + user.last_name
+                    if len(name) > 0:
+                        name = name + ' ' + user.last_name
+                    else:
+                        name = user.last_name
                 if len(name) > 0:
                     text = WELCOME_TEXT.format(name)
                 else:
