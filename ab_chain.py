@@ -42,7 +42,7 @@ def on_user_joins(bot, update):
         filedata = open("greeting.txt", "r")
         info_package = filedata.read()
         filedata.close()
-        bot.sendMessage(text=info_package, chat_id=query.message.from_user.id, disable_web_page_preview=True)
+        bot.sendMessage(text=info_package, chat_id=query.message.chat.id, disable_web_page_preview=True)
 
 
 def main():
