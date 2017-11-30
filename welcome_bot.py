@@ -10,7 +10,6 @@ from telegram.ext import Updater, Filters, MessageHandler
 # from clients import log_client, check_username
 
 STEP = 10
-WELCOME_TEXT = 'Greetings, {}, welcome to AB-CHAIN community!'
 MESSAGE_ID = 0
 
 # Set up Updater and Dispatcher
@@ -32,9 +31,10 @@ def on_user_joins(bot, update):
     global MESSAGE_ID
     query = get_query(bot, update)
     if len(query.message.new_chat_members) > 0 and query.message.chat.type in ["group", "supergroup"]:
+        greeting = greeting_msg()
         for user in query.message.new_chat_members:
             if user.username != None:
-                text = WELCOME_TEXT.format(u'@' + user.username)
+                text = greeting.format(u'@' + user.username)
             else:
                 name = str()
                 if user.first_name:
@@ -45,17 +45,23 @@ def on_user_joins(bot, update):
                     else:
                         name = user.last_name
                 if len(name) > 0:
-                    text = WELCOME_TEXT.format(name)
+                    text = greeting.format(name)
                 else:
-                    text = WELCOME_TEXT.format('stranger')
+                    text = greeting.format('stranger')
             bot.sendMessage(text=text, chat_id=query.message.chat.id)
             if query.message.message_id > MESSAGE_ID + STEP:
-                filedata = open("greeting.txt", "r")
+                filedata = open("info_package.txt", "r")
                 info_package = filedata.read()
                 filedata.close()
                 bot.sendMessage(text=info_package, chat_id=query.message.chat.id, disable_web_page_preview=False)
                 MESSAGE_ID = query.message.message_id
 
+
+def greeting_msg():
+    filedata = open("greeting.txt", "r")
+    greeting = filedata.read()
+    filedata.close()
+    return greeting
 
 def main():
     logging.basicConfig(level=logging.INFO)

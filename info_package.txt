@@ -1,0 +1,1 @@
+This is addition info package that will be sent to welcome user if only there are $STEP messages from the previos greeting message.
